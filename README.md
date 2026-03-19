@@ -123,10 +123,33 @@ instagram.com
 
 ```
 websites_block/
-├── main.py           # Весь код приложения
+├── main.py           # Точка входа — запускает GUI
+├── config.py         # Константы: пути, маркеры, IP-адрес
+├── db.py             # Работа с SQLite (пароли, список сайтов)
+├── auth.py           # Хэширование и проверка пароля
+├── hosts.py          # Чтение и запись системного hosts-файла
+├── scheduler.py      # Планировщик задач (фоновый поток)
+├── gui.py            # Графический интерфейс (класс App)
 ├── requirements.txt  # Зависимости (только schedule)
 ├── README.md         # Документация
 └── app_data.db       # База данных SQLite (создаётся автоматически при первом запуске)
+```
+
+### Граф зависимостей модулей
+
+```
+main.py
+  └── gui.py
+        ├── config.py
+        ├── auth.py
+        │     └── db.py
+        │           └── config.py
+        ├── db.py
+        ├── hosts.py
+        │     └── config.py
+        └── scheduler.py
+              ├── db.py
+              └── hosts.py
 ```
 
 ---
